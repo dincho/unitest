@@ -33,6 +33,8 @@ SELECT TABLE_NAME FROM unitest.INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BAS
 
 # Solutions
 
+The solution has been implemented with total of 10 tables.
+For details see the ![EER Diagram](./unitest_EER.png "EER Diagram").
 
 ## Search for test assessment by student and discipline
 
@@ -54,20 +56,68 @@ EXEC FindAssessment @faculty_number = '111', @discipline = 'Computer';
 ```
 
 ### Results
-
+```
++-----------------+----------+--------------------------------+----------+-------------------------+
+| Student name    | Fac. #   | Discipline                     | Test     | Date taken              |
+|-----------------+----------+--------------------------------+----------+-------------------------|
+| Ivan Petrov     | 111082   | Computer networks and Internet | SQL Quiz | 2018-04-21 08:12:00.000 |
+| Ivan Petrov     | 111082   | Computer networks and Internet | SQL Quiz | 2018-04-20 08:44:00.000 |
+| Gabriela Geneva | 111083   | Computer networks and Internet | SQL Quiz | 2018-04-20 08:20:00.000 |
++-----------------+----------+--------------------------------+----------+-------------------------+
+```
 
 ## Average correct answers by test, question number and variant
-?????
+
+Implemented with helper view `correct_answers_view` and wrapped in view `avg_correct_answers_view`.
 
 ### Examples
+
+```sql
+SELECT * FROM avg_correct_answers_view;
+```
 
 ### Results
 
+```
++----------+-----------+--------------------------------------------------------------------------------------+-----------------------+
+| Test     | Variant   | Question                                                                             | avg_correct_answers   |
+|----------+-----------+--------------------------------------------------------------------------------------+-----------------------|
+| SQL Quiz | 1         | What does SQL stand for?                                                             | 0                     |
+| SQL Quiz | 1         | Which SQL statement is used to extract data from a database?                         | 1                     |
+| SQL Quiz | 1         | Which SQL statement is used to update data in a database?                            | 2                     |
+| SQL Quiz | 2         | Which SQL statement is used to delete data from a database?                          | 0                     |
+| SQL Quiz | 2         | Which SQL statement is used to insert new data in a database?                        | 1                     |
+| SQL Quiz | 2         | With SQL, how do you select a column named "FirstName" from a table named "Persons"? | 1                     |
++----------+-----------+--------------------------------------------------------------------------------------+-----------------------+
+```
 
+## Average question and variants by disciplines
+
+Implemented with helper view `tests_agg_view` and wrapped in view `disciplines_agg_view`.
+
+### Examples
+
+```sql
+SELECT * FROM disciplines_agg_view;
+```
+
+### Results
+
+```
++--------------------------------+-----------------+----------------+
+| name                           | avg_questions   | avg_variants   |
+|--------------------------------+-----------------+----------------|
+| Computer networks and Internet | 6               | 2              |
+| Internet servers and services  | 5               | 1              |
++--------------------------------+-----------------+----------------+
+```
 
 ## Number of assessments with less than 50% success rate
 
+Implemented with helper view `success_rate_view` and wrapped in SP `NumberOfFailedAssessments`.
+
 ### Examples
+
 ```sql
 SELECT * FROM success_rate_view WHERE success_rate < 50;
 ```
@@ -77,3 +127,10 @@ EXEC NumberOfFailedAssessments;
 ```
 
 ### Results
+```
++----------------------+
+| failed_assessments   |
+|----------------------|
+| 5                    |
++----------------------+
+```
