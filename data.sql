@@ -42,9 +42,11 @@ INSERT INTO questions (test_id, question_number, variant_number, title) VALUES
     (1, 1, 1, 'What does SQL stand for?'),
     (1, 2, 1, 'Which SQL statement is used to extract data from a database?'),
     (1, 3, 1, 'Which SQL statement is used to update data in a database?'),
+
     (1, 1, 2, 'Which SQL statement is used to delete data from a database?'),
     (1, 2, 2, 'Which SQL statement is used to insert new data in a database?'),
     (1, 3, 2, 'With SQL, how do you select a column named "FirstName" from a table named "Persons"?'),
+
     (2, 1, 1, 'What does HTML stand for?'),
     (2, 2, 1, 'Who is making the Web standards?'),
     (2, 3, 1, 'Choose the correct HTML element for the largest heading:'),
@@ -55,43 +57,52 @@ INSERT INTO answers (question_id, title, correct) VALUES
     (1, 'Strong Question Language', 0),
     (1, 'Structured Question Language', 0),
     (1, 'Structured Query Language', 1),
+
     (2, 'SELECT', 1),
     (2, 'GET', 0),
     (2, 'EXTRACT', 0),
     (2, 'OPEN', 0),
+
     (3, 'UPDATE', 1),
     (3, 'SAVE', 0),
     (3, 'MODIFY', 0),
     (3, 'SAVE AS', 0),
+
     (4, 'COLLAPSE', 0),
     (4, 'REMOVE', 0),
     (4, 'DELETE', 1),
+
     (5, 'ADD RECORD', 0),
     (5, 'ADD NEW', 0),
     (5, 'INSERT INTO', 1),
     (5, 'INSERT NEW', 0),
+
     (6, 'EXTRACT FirstName FROM Persons', 0),
     (6, 'SELECT Persons.FirstName', 0),
     (6, 'SELECT FirstName FROM Persons', 1),
+
     (7, 'Hyperlinks and Text Markup Language', 0),
     (7, 'Home Tool Markup Language', 0),
     (7, 'Hyper Text Markup Language', 1),
     (7, 'The World Wide Web Consortium', 1),
+
     (8, 'Microsoft', 0),
     (8, 'Google', 0),
     (8, 'Mozilla', 0),
+
     (9, '<heading>', 0),
     (9, '<head>', 0),
     (9, '<h6>', 0),
     (9, '<h1>', 1),
+
     (10, '<break>', 0),
     (10, '<lb>', 0),
     (10, '<br>', 1),
+
     (11, '<important>', 0),
     (11, '<b>', 0),
     (11, '<i>', 0),
     (11, '<strong>', 1);
-
 
 INSERT INTO assessments (student_fn, test_id, taken_at) VALUES 
     ('111082', 1, '2018-04-20 8:44'),
@@ -105,11 +116,14 @@ INSERT INTO assessment_answer (assessment_id, question_id, answer_id) VALUES
     (1, 2, 4),
     (1, 3, 8),
 
-    (1, 4, 12),
-
     (2, 1, 2),
     (2, 2, 5),
-    (2, 3, 8)
+    (2, 3, 8),
+
+    (3, 4, 12),
+    (3, 5, 17),
+    (3, 6, 21)
+
     ;
 
 GO
