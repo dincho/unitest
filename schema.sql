@@ -33,6 +33,15 @@ CREATE TABLE students (
     REFERENCES specialties(id)
 )
 
+CREATE TABLE student_disciplines (
+    student_fk VARCHAR(10) PRIMARY KEY NOT NULL,
+    discipline_id INT NOT NULL,
+    CONSTRAINT fk_student FOREIGN KEY (student_fk)
+    REFERENCES students(faculty_number),
+    CONSTRAINT fk_discipline FOREIGN KEY (discipline_id)
+    REFERENCES disciplines(id)
+)
+
 CREATE TABLE tests (
     id INT IDENTITY(1,1) PRIMARY KEY,
     discipline_id INT NOT NULL,
