@@ -1,3 +1,5 @@
+Online and up-to-date version can be found at: https://github.com/dincho/unitest
+
 # Setup
 
 ## Run the docker image
@@ -33,8 +35,9 @@ SELECT TABLE_NAME FROM unitest.INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BAS
 
 # Solutions
 
-The solution has been implemented with total of 10 tables.
-For details see the ![EER Diagram](./unitest_EER.png "EER Diagram").
+The solution has been implemented with total of 10 tables. For details see the EER Diagram below.
+
+![EER Diagram](https://raw.githubusercontent.com/dincho/unitest/master/unitest_EER.png "EER Diagram").
 
 ## Search for test assessment by student and discipline
 
