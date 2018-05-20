@@ -46,8 +46,8 @@ CREATE TABLE tests (
     id INT IDENTITY(1,1) PRIMARY KEY,
     discipline_id INT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    questions_count TINYINT NOT NULL DEFAULT 0,
-    variants_count TINYINT NOT NULL DEFAULT 0,
+    max_questions TINYINT NOT NULL DEFAULT 0,
+    max_variants TINYINT NOT NULL DEFAULT 0,
     CONSTRAINT fk_test_discipline FOREIGN KEY (discipline_id)
     REFERENCES disciplines(id)
 )

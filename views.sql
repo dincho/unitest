@@ -14,8 +14,8 @@ GO
 
 
 CREATE VIEW success_rate_view WITH SCHEMABINDING AS
-SELECT ass.id ass_id, ass.correct_answers, t.questions_count,
-    ROUND((ass.correct_answers/CAST(t.questions_count AS FLOAT))*100, 0) "success_rate"
+SELECT ass.id ass_id, ass.correct_answers, t.max_questions,
+    ROUND((ass.correct_answers/CAST(t.max_questions AS FLOAT))*100, 0) "success_rate"
     FROM dbo.assessments ass
         INNER JOIN dbo.tests t ON (ass.test_id = t.id)
 GO

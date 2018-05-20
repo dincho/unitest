@@ -34,8 +34,8 @@ INSERT INTO students (faculty_number, specialty_id, name, course, email) VALUES
     ('103039', 3, 'Asen Mitev', 1, 'asoto@gmail.com'),
     ('103056', 3, 'Lubica Marcheva', 2, 'lubka@gmail.com');
 
-INSERT INTO tests (discipline_id, name, questions_count, variants_count) VALUES 
-    (1, 'SQL Quiz', 3, 2),
+INSERT INTO tests (discipline_id, name, max_questions, max_variants) VALUES
+    (1, 'SQL Quiz', 6, 2),
     (2, 'HTML Quiz', 5, 1);
 
 INSERT INTO questions (test_id, question_number, variant_number, title) VALUES 
