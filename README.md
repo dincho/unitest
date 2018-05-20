@@ -39,6 +39,19 @@ The solution has been implemented with total of 10 tables. For details see the E
 
 ![EER Diagram](https://raw.githubusercontent.com/dincho/unitest/master/unitest_EER.png "EER Diagram").
 
+## Triggers
+
+### Assessment answers denormalization
+
+For easy reporting and for the sake of the example a trigger with name `sync_assessment_answer`
+is used to update assessment correct answers. The trigger itself calls SP `UpdateAssessmentCorrectAnswers`.
+
+
+### Questions limits
+
+To enforce test limits set by `max_questions` and `max_variants` a trigger named `limit_questions`
+is setup for `questions` table inserts that checks and throw an error in case the limits are reached.
+
 ## Search for test assessment by student and discipline
 
 ### Examples
