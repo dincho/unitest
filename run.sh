@@ -1,9 +1,11 @@
 #!/bin/bash
 
+WAIT_SECONDS=${1:-15}
+
 docker build -t unitest .
 docker rm --force unitest
 docker run -d --name unitest unitest
-sleep 15
+sleep $WAIT_SECONDS
 docker exec -it unitest \
     /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P P@55w0rd \
     -i options.sql \
