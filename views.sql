@@ -1,29 +1,17 @@
-CREATE VIEW correct_answers_agg_view WITH SCHEMABINDING AS
-SELECT q.test_id, q.variant_number, q.question_number,
-    SUM(CAST(ans.correct AS INT)) AS correct_answers,
-    COUNT_BIG(*) AS COUNT
-    FROM dbo.assessment_answer assan
-        INNER JOIN dbo.questions q ON (assan.question_id = q.id)
-        INNER JOIN dbo.answers ans ON (assan.answer_id = ans.id)
-    GROUP BY q.test_id, q.variant_number, q.question_number
+CREATE VIEW tests_agg_view WITH SCHEMABINDING AS
+SELECT t.id, COUNT(q.id) num_questions,
+    COUNT(DISTINCT q.variant_number) num_variants
+    FROM dbo.tests t
+        INNER JOIN dbo.questions q ON (t.id = q.test_id)
+    GROUP BY t.id
 GO
 
-CREATE UNIQUE CLUSTERED INDEX agg_idx
-    ON correct_answers_agg_view (test_id, variant_number, question_number)
-GO
-
-
-CREATE VIEW success_rate_view WITH SCHEMABINDING AS
-SELECT ass.id ass_id, ass.correct_answers, t.max_questions,
-    ROUND((ass.correct_answers/CAST(t.max_questions AS FLOAT))*100, 0) "success_rate"
+CREATE VIEW success_rate_view AS
+SELECT ass.test_id, ass.student_fn, ass.correct_answers,
+    ROUND((ass.correct_answers/CAST(ta.num_questions AS FLOAT))*100, 0) "success_rate"
     FROM dbo.assessments ass
-        INNER JOIN dbo.tests t ON (ass.test_id = t.id)
+        LEFT JOIN tests_agg_view ta ON ass.test_id = ta.id
 GO
-
-CREATE UNIQUE CLUSTERED INDEX ass_idx
-    ON success_rate_view (ass_id)
-GO
-
 
 CREATE VIEW test_qa_view WITH SCHEMABINDING AS
 SELECT t.name "Test", 
@@ -35,7 +23,6 @@ SELECT t.name "Test",
     WHERE a.question_id = q.id
 GO
 
-
 CREATE VIEW student_answers_view WITH SCHEMABINDING AS
 SELECT s.name "Student", t.name "Test", 
     q.variant_number 'Variant', q.question_number '#', q.title 'Question',
@@ -46,12 +33,4 @@ SELECT s.name "Student", t.name "Test",
         LEFT JOIN dbo.answers ans ON (assan.answer_id = ans.id)
         LEFT JOIN dbo.students s ON (ass.student_fn = s.faculty_number)
         LEFT JOIN dbo.tests t ON (ass.test_id = t.id)
-GO
-
-CREATE VIEW tests_agg_view WITH SCHEMABINDING AS
-SELECT t.id, COUNT(q.id) num_questions,
-    COUNT(DISTINCT q.variant_number) num_variants
-    FROM dbo.tests t
-        INNER JOIN dbo.questions q ON (t.id = q.test_id)
-    GROUP BY t.id
 GO
