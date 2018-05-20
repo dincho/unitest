@@ -54,13 +54,13 @@ END
 GO
 
 CREATE PROC FindAssessment(
-    @faculty_number VARCHAR(10),
+    @faculty_number VARCHAR(10) = '_',
     @discipline VARCHAR(100) = '_'
 ) AS
 BEGIN
     SET NOCOUNT ON
-    SELECT s.name "Student name", s.faculty_number "Fac. #",
-        d.name "Discipline", t.name "Test", ass.taken_at "Date taken"
+    SELECT s.name 'Student name', s.faculty_number 'Fac. #',
+        d.name 'Discipline', t.name 'Test', ass.taken_at 'Date taken'
         FROM assessments ass
             LEFT JOIN students s ON (ass.student_fn = s.faculty_number)
             LEFT JOIN tests t ON (ass.test_id = t.id)

@@ -40,17 +40,17 @@ SELECT TABLE_NAME FROM unitest.INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BAS
 
 By student faculty number only:
 ```sql
-EXEC FindAssessment '111082';
+EXEC FindAssessment @faculty_number = '111082';
 ```
 
 By student faculty number only and discipline:
 ```sql
-EXEC FindAssessment '111082', 'Computer networks and Internet';
+EXEC FindAssessment @faculty_number = '111082', @discipline = 'Computer networks and Internet';
 ```
 
 Note that both parameters are wild-card, so the below example also works:
 ```sql
-EXEC FindAssessment '111', 'Computer';
+EXEC FindAssessment @faculty_number = '111', @discipline = 'Computer';
 ```
 
 ### Results
