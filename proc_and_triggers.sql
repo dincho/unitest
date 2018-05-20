@@ -80,3 +80,28 @@ BEGIN
 END
 GO
 
+CREATE TRIGGER limit_questions ON questions FOR INSERT
+AS
+BEGIN
+    SET NOCOUNT ON
+
+    IF EXISTS (SELECT 1 FROM INSERTED i
+            INNER JOIN tests t ON (i.test_id = t.id)
+            INNER JOIN tests_agg_view ta ON (t.id = ta.id)
+            WHERE ta.num_questions > t.max_questions)
+    BEGIN
+        RAISERROR('Max questions reached!', 10, 1)
+        ROLLBACK TRANSACTION
+    END
+
+    IF EXISTS (SELECT 1 FROM INSERTED i
+            INNER JOIN tests t ON (i.test_id = t.id)
+            INNER JOIN tests_agg_view ta ON (t.id = ta.id)
+            WHERE ta.num_variants > t.max_variants)
+    BEGIN
+        RAISERROR('Max variants reached!', 10, 1)
+        ROLLBACK TRANSACTION
+    END
+END
+GO
+

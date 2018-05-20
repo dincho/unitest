@@ -47,3 +47,11 @@ SELECT s.name "Student", t.name "Test",
         LEFT JOIN dbo.students s ON (ass.student_fn = s.faculty_number)
         LEFT JOIN dbo.tests t ON (ass.test_id = t.id)
 GO
+
+CREATE VIEW tests_agg_view WITH SCHEMABINDING AS
+SELECT t.id, COUNT(q.id) num_questions,
+    COUNT(DISTINCT q.variant_number) num_variants
+    FROM dbo.tests t
+        INNER JOIN dbo.questions q ON (t.id = q.test_id)
+    GROUP BY t.id
+GO
